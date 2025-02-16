@@ -28,6 +28,7 @@
             </svg>
             <div class="timer">
                 <span id="minutes">25</span>:<span id="seconds">00</span>
+                <div id="mode-text" class="mode-text">Focus Mode</div>
             </div>
         </div>
         <div class="controls">
@@ -42,19 +43,30 @@
             </button>
         </div>
         <div class="time-settings">
-            <div class="setting">
-                <label for="workTime">Work Time (minutes):</label>
-                <input type="number" id="workTime" min="1" max="60" value="25">
-            </div>
-            <div class="setting">
-                <label for="restTime">Rest Time (minutes):</label>
-                <input type="number" id="restTime" min="1" max="60" value="5">
+            <button class="settings-toggle">
+                <h3>Timer Settings</h3>
+                <span class="material-icons">expand_more</span>
+            </button>
+            <div class="settings-content hidden">
+                <div class="setting">
+                    <label for="workTime">Work Time (minutes):</label>
+                    <input type="number" id="workTime" min="1" max="60" value="25">
+                </div>
+                <div class="setting">
+                    <label for="restTime">Rest Time (minutes):</label>
+                    <input type="number" id="restTime" min="1" max="60" value="5">
+                </div>
             </div>
         </div>
         <div class="stats">
-            <h3>Today's Progress</h3>
-            <div id="sessions-completed">Focus Sessions: 0</div>
-            <div id="total-focus-time">Total Focus Time: 0 min</div>
+            <button class="stats-toggle">
+                <h3>Today's Progress</h3>
+                <span class="material-icons">expand_more</span>
+            </button>
+            <div class="stats-content hidden">
+                <div id="sessions-completed">Focus Sessions: 0</div>
+                <div id="total-focus-time">Total Focus Time: 0 min</div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

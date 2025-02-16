@@ -75,7 +75,6 @@ function startTimer() {
                     celebrateCompletion();
                 }
                 
-                playNotification();
                 switchMode();
             }
         }, 1000);
@@ -102,6 +101,9 @@ function switchMode() {
     const emojiContainer = document.querySelector('.emoji-container');
     emojiContainer.textContent = isWorkMode ? '🧘' : '☕';
     
+    // Update mode text
+    document.getElementById('mode-text').textContent = isWorkMode ? 'Focus Mode' : 'Rest Mode';
+    
     updateButtonStates();
     updateDisplay();
 }
@@ -121,18 +123,13 @@ function updateStats() {
     totalTimeDisplay.textContent = `Total Focus Time: ${totalFocusTime} min`;
 }
 
-function playNotification() {
-    const audio = new Audio('notification.mp3');
-    audio.play();
-    
-    if (Notification.permission === 'granted') {
-        new Notification(isWorkMode ? 'Break Time!' : 'Back to Focus!');
-    }
-}
-
-// Request notification permission
-if (Notification.permission !== 'granted') {
-    Notification.requestPermission();
+function celebrateCompletion() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff6b6b', '#ff8e8e', '#ffa0a0']
+    });
 }
 
 startPauseButton.addEventListener('click', () => {
@@ -153,6 +150,9 @@ restTimeInput.addEventListener('change', handleTimeChange);
 // Initialize display and background
 updateDisplay();
 updateButtonStates();
+
+// Initialize mode text
+document.getElementById('mode-text').textContent = isWorkMode ? 'Focus Mode' : 'Rest Mode';
 
 function handleTimeChange() {
     if (timerId !== null) {
@@ -198,11 +198,22 @@ function showSleepyEmojis() {
     }
 }
 
-function celebrateCompletion() {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#ff6b6b', '#ff8e8e', '#ffa0a0']
-    });
-}
+// Add this after your other constant declarations at the top
+const statsToggle = document.querySelector('.stats-toggle');
+const statsContent = document.querySelector('.stats-content');
+
+// Add this after your other event listeners
+statsToggle.addEventListener('click', () => {
+    statsContent.classList.toggle('hidden');
+    statsToggle.classList.toggle('active');
+});
+
+// Add after your other constant declarations
+const settingsToggle = document.querySelector('.settings-toggle');
+const settingsContent = document.querySelector('.settings-content');
+
+// Add after your other event listeners
+settingsToggle.addEventListener('click', () => {
+    settingsContent.classList.toggle('hidden');
+    settingsToggle.classList.toggle('active');
+});
